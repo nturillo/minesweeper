@@ -9,8 +9,8 @@
 class Counter {
 public:
 	Counter();
-	void setNumber(const int& value);
-	void setPosition(const sf::Vector2<float>& pos);
+	void setNumber(const int value);
+	void setPosition(const sf::Vector2f& pos);
 	void draw(sf::RenderWindow* window);
 	Counter& operator++();
 	Counter& operator--();

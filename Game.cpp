@@ -8,7 +8,7 @@ Game::Game() {
 	window = nullptr;
 }
 
-void Game::Start(const sf::Vector2<int>& boardSize, const unsigned int& numBombs) {
+void Game::Start(const sf::Vector2i& boardSize, const unsigned int numBombs) {
 	const unsigned int randSeed = 0;
 
 	isRunning = true;
@@ -18,17 +18,17 @@ void Game::Start(const sf::Vector2<int>& boardSize, const unsigned int& numBombs
 	}
 	board = new Board(boardSize);
 
-	sf::Vector2<float> boardPixelSize = sf::Vector2<float>(boardSize.x * board->TILE_SIZE.x,
+	sf::Vector2f boardPixelSize = sf::Vector2f(boardSize.x * board->TILE_SIZE.x,
 		boardSize.y * board->TILE_SIZE.y);
 	if (window == nullptr) {
 		window = new sf::RenderWindow(sf::VideoMode(boardPixelSize.x, boardPixelSize.y + LOWER_MARGIN), "Minesweeper", sf::Style::Default);
 	}
 
 	//Set Button Positions
-	restartButton.setPosition(sf::Vector2<float>(boardPixelSize.x / 2 - 32, boardPixelSize.y));
-	debugButton.setPosition(sf::Vector2<float>(boardPixelSize.x / 2 + 96, boardPixelSize.y));
+	restartButton.setPosition(sf::Vector2f(boardPixelSize.x / 2 - 32, boardPixelSize.y));
+	debugButton.setPosition(sf::Vector2f(boardPixelSize.x / 2 + 96, boardPixelSize.y));
 	for (int i = 0; i < 3; i++) {
-		testButtons[i].setPosition(sf::Vector2<float>(boardPixelSize.x / 2 + 160 + (64 * i), boardPixelSize.y));
+		testButtons[i].setPosition(sf::Vector2f(boardPixelSize.x / 2 + 160 + (64 * i), boardPixelSize.y));
 	}
 	//Set Button Textures
 	restartButton.setTexture(TextureManager::getTexture("face_happy"));
@@ -40,7 +40,7 @@ void Game::Start(const sf::Vector2<int>& boardSize, const unsigned int& numBombs
 	board->assignRandomBombs(numBombs);
 }
 
-const bool& Game::Process() {
+const bool Game::Process() {
 	if (window->isOpen()) {
 		window->clear(sf::Color::White);
 
@@ -65,7 +65,7 @@ const bool& Game::Process() {
 					}
 				}
 				else {
-					sf::Vector2<float> mousePos = sf::Vector2<float>(event.mouseButton.x, event.mouseButton.y);
+					sf::Vector2f mousePos = sf::Vector2f(event.mouseButton.x, event.mouseButton.y);
 					if (restartButton.checkClick(mousePos)) {
 						this->Start(ConfigManager::getBoardSize(), ConfigManager::getDefaultNumMines());
 					}

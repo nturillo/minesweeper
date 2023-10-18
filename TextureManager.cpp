@@ -31,7 +31,7 @@ const sf::Texture& TextureManager::getTexture(const std::string& name)
     return textures.at(name);
 }
 
-const sf::Texture& TextureManager::getNumTexture(const int& index) {
+const sf::Texture& TextureManager::getNumTexture(const int index) {
 	std::string textureNames[8] = {"number_1", "number_2", "number_3", "number_4", "number_5", "number_6", "number_7", "number_8"};
 	return textures[textureNames[index - 1]];
 }

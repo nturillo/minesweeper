@@ -8,11 +8,11 @@ GreyTile::GreyTile() : Tile::Tile() {
 	}
 }
 
-void GreyTile::setIsBomb(const bool& value) {
+void GreyTile::setIsBomb(const bool value) {
 	isBomb = value;
 }
 
-void GreyTile::setIsFlagged(const bool& value) {
+void GreyTile::setIsFlagged(const bool value) {
 	isFlagged = value;
 }
 
@@ -20,15 +20,15 @@ void GreyTile::setNeighbor(unsigned int index, GreyTile* neighbor) {
 	neighbors[index] = neighbor;
 }
 
-const bool& GreyTile::getIsBomb() const {
+const bool GreyTile::getIsBomb() const {
 	return isBomb;
 }
 
-const bool& GreyTile::getIsFlagged() const {
+const bool GreyTile::getIsFlagged() const {
 	return isFlagged;
 }
 
-const bool& GreyTile::reveal() {
+const bool GreyTile::reveal() {
 	if (isBomb) {
 		sprites[0].setTexture(TextureManager::getTexture("tile_revealed"));
 		spriteState = BOTH;

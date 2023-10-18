@@ -2,7 +2,7 @@
 #include <cstdlib>
 
 Board::Board() {
-	boardSize = sf::Vector2<int>(1, 1);
+	boardSize = sf::Vector2i(1, 1);
 
 	tileArr = new GreyTile*[1];
 	tileArr[0] = new GreyTile[1];
@@ -15,10 +15,10 @@ Board::Board() {
 	bombsVisible = false;
 }
 
-Board::Board(const sf::Vector2<int>& boardSize) {
+Board::Board(const sf::Vector2i& boardSize) {
 	this->boardSize = boardSize;
 	numTiles = boardSize.x * boardSize.y;
-	counter.setPosition(sf::Vector2<float>(0, boardSize.y * TILE_SIZE.y));
+	counter.setPosition(sf::Vector2f(0, boardSize.y * TILE_SIZE.y));
 
 	//create array container for each row array
 	tileArr = new GreyTile*[boardSize.y];
@@ -29,7 +29,7 @@ Board::Board(const sf::Vector2<int>& boardSize) {
 		tileArr[y] = new GreyTile[boardSize.x];
 		for (int x = 0; x < boardSize.x; x++) {
 			//set info for each tile in the row
-			sf::Vector2<int> boardPosition = sf::Vector2<int>(x, y);
+			sf::Vector2i boardPosition = sf::Vector2i(x, y);
 			tileArr[y][x].setBoardPosition(boardPosition);
 			tileArr[y][x].setTexture(TextureManager::getTexture("tile_hidden"), 0);
 			tileArr[y][x].setTileSize(TILE_SIZE);
@@ -43,7 +43,7 @@ Board::Board(const sf::Vector2<int>& boardSize) {
 		flagArr[y] = new FlagTile[boardSize.x];
 		for (int x = 0; x < boardSize.x; x++) {
 			//set info for each tile in the row
-			sf::Vector2<int> boardPosition = sf::Vector2<int>(x, y);
+			sf::Vector2i boardPosition = sf::Vector2i(x, y);
 			flagArr[y][x].setBoardPosition(boardPosition);
 			flagArr[y][x].setTileSize(TILE_SIZE);
 		}
@@ -98,16 +98,16 @@ Board::Board(const sf::Vector2<int>& boardSize) {
 	bombsVisible = false;
 }
 
-const sf::Vector2<int>& Board::getBoardSize() const {
+const sf::Vector2i& Board::getBoardSize() const {
 	return boardSize;
 }
 
-const Tile& Board::getTile(const sf::Vector2<float>& exactPosition) const{
-	sf::Vector2<int> tileIndex = getTileIndexFromExactPosition(exactPosition);
+const Tile& Board::getTile(const sf::Vector2f& exactPosition) const{
+	sf::Vector2i tileIndex = getTileIndexFromExactPosition(exactPosition);
 	return tileArr[tileIndex.y][tileIndex.x];
 }
 
-const Tile& Board::getTile(const sf::Vector2<int>& boardPosition) const {
+const Tile& Board::getTile(const sf::Vector2i& boardPosition) const {
 	return tileArr[boardPosition.y][boardPosition.x];
 }
 
@@ -124,7 +124,7 @@ void Board::clearBombs() {
 	numBombs = 0;
 }
 
-void Board::assignRandomBombs(const unsigned int& numBombs) {
+void Board::assignRandomBombs(const unsigned int numBombs) {
 	clearBombs();
 
 	this->numBombs = numBombs;
@@ -140,7 +140,7 @@ void Board::assignRandomBombs(const unsigned int& numBombs) {
 			tileArr[y][x].setIsBomb(true);
 			tileArr[y][x].setTexture(TextureManager::getTexture("mine"), 1);
 			//tileArr[y][x].setSpriteState(Tile::BOTH); //temporary for debugging
-			debugBombArr[i].setBoardPosition(sf::Vector2<int>(x, y));
+			debugBombArr[i].setBoardPosition(sf::Vector2i(x, y));
 			debugBombArr[i].setTexture(TextureManager::getTexture("mine"), 0);
 			i++;
 		}
@@ -166,7 +166,7 @@ void Board::assignSpecificBombs(const std::string& setup) {
 			if (setup[index] == '1') {
 				tileArr[y][x].setIsBomb(true);
 				tileArr[y][x].setTexture(TextureManager::getTexture("mine"), 1);
-				debugBombArr[tempBombCounter].setBoardPosition(sf::Vector2<int>(x, y));
+				debugBombArr[tempBombCounter].setBoardPosition(sf::Vector2i(x, y));
 				debugBombArr[tempBombCounter].setTexture(TextureManager::getTexture("mine"), 0);
 				tempBombCounter++;
 			}
@@ -177,21 +177,21 @@ void Board::assignSpecificBombs(const std::string& setup) {
 	counter.setNumber(numBombs);
 }
 
-void Board::setBombVisibility(const bool& value) {
+void Board::setBombVisibility(const bool value) {
 	bombsVisible = value;
 }
 
-const bool& Board::getBombVisibility() const {
+const bool Board::getBombVisibility() const {
 	return bombsVisible;
 }
 
 
 
 //MISC TOOLS
-const sf::Vector2<int>& Board::getTileIndexFromExactPosition(const sf::Vector2<float>& exactPosition) const {
+const sf::Vector2i& Board::getTileIndexFromExactPosition(const sf::Vector2f& exactPosition) const {
 	int x_pos = (int)exactPosition.x / TILE_SIZE.x;
 	int y_pos = (int)exactPosition.y / TILE_SIZE.y;
-	return sf::Vector2<int>(x_pos, y_pos);
+	return sf::Vector2i(x_pos, y_pos);
 }
 
 void Board::drawBoard(sf::RenderWindow* window) {
@@ -214,7 +214,7 @@ void Board::drawBoard(sf::RenderWindow* window) {
 	}
 }
 
-const bool& Board::checkWin() const{
+const bool Board::checkWin() const{
 	int numRevealed = 0;
 	for (int x = 0; x < boardSize.x; x++) {
 		for (int y = 0; y < boardSize.y; y++) {
@@ -241,8 +241,8 @@ const bool& Board::checkWin() const{
 
 //interpret input
 const Board::ClickResult& Board::interpretMouseClick(sf::Event event) {
-	sf::Vector2<float> mousePos = sf::Vector2<float>(event.mouseButton.x, event.mouseButton.y);
-	sf::Vector2<int> tileIndex = getTileIndexFromExactPosition(mousePos);
+	sf::Vector2f mousePos = sf::Vector2f(event.mouseButton.x, event.mouseButton.y);
+	sf::Vector2i tileIndex = getTileIndexFromExactPosition(mousePos);
 
 	switch (event.mouseButton.button) {
 	case sf::Mouse::Left:

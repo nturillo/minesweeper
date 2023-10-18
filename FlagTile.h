@@ -5,6 +5,6 @@ class FlagTile :
     public Tile
 {
 public:
-    const bool& reveal();
+    const bool reveal();
 
 };

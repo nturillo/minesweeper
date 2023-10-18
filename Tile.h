@@ -12,26 +12,26 @@ public:
 	};
 
 	Tile();
-	void setIsRevealed(bool& value);
+	void setIsRevealed(bool value);
 	void setSpriteState(const SpriteState& spriteState);
-	void setExactPosition(const sf::Vector2<float>& exactPosition);
-	void setBoardPosition(const sf::Vector2<int>& boardPosition);
+	void setExactPosition(const sf::Vector2f& exactPosition);
+	void setBoardPosition(const sf::Vector2i& boardPosition);
 	void setTexture(const sf::Texture& texture, const unsigned short& index);
-	void setTileSize(const sf::Vector2<float>& tileSize);
-	const bool& getIsRevealed() const;
+	void setTileSize(const sf::Vector2f& tileSize);
+	const bool getIsRevealed() const;
 	const SpriteState& getSpriteState() const;
 	const sf::Sprite& getSprite(const unsigned short& index) const;
-	const sf::Vector2<float>& getExactPosition() const;
-	const sf::Vector2<int>& getBoardPosition() const;
+	const sf::Vector2f& getExactPosition() const;
+	const sf::Vector2i& getBoardPosition() const;
 	void draw(sf::RenderWindow* window);
 
 	//virtual functions
-	virtual const bool& reveal() = 0;
+	virtual const bool reveal() = 0;
 protected:
 	bool revealed;
 	SpriteState spriteState;
 	sf::Sprite sprites[2];
-	sf::Vector2<float> position;
-	sf::Vector2<float> tileSize = sf::Vector2<float>(32, 32);
+	sf::Vector2f position;
+	sf::Vector2f tileSize = sf::Vector2f(32, 32);
 };
 

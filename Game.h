@@ -14,8 +14,8 @@ class Game
 public:
 	const unsigned int LOWER_MARGIN = 100;
 	Game();
-	void Start(const sf::Vector2<int>& boardSize, const unsigned int& numBombs);
-	const bool& Process();
+	void Start(const sf::Vector2i& boardSize, const unsigned int numBombs);
+	const bool Process();
 	~Game();
 private:
 	sf::RenderWindow* window = nullptr;

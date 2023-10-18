@@ -10,7 +10,7 @@ Counter::Counter() {
 
 }
 
-void Counter::setNumber(const int& value) {
+void Counter::setNumber(const int value) {
 	this->value = value;
 	int absvalue = std::abs(value);
 	char digits[3];
@@ -19,9 +19,9 @@ void Counter::setNumber(const int& value) {
 		digitSprites[i].setTextureRect(sf::Rect<int>(digits[i] * 21, 0, 21, 32));
 	}
 }
-void Counter::setPosition(const sf::Vector2<float>& pos) {
+void Counter::setPosition(const sf::Vector2f& pos) {
 	for (int i = 0; i < 4; i++) {
-		digitSprites[i].setPosition(pos + sf::Vector2<float>(21 * (3 - i), 0));
+		digitSprites[i].setPosition(pos + sf::Vector2f(21 * (3 - i), 0));
 	}
 }
 

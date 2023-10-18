@@ -9,7 +9,7 @@ public:
     static void loadTexture(const std::string& name, const std::string& filename);
     static void loadMinesweeperTextures(std::string& imagesFile);
     static const sf::Texture& getTexture(const std::string& name);
-    static const sf::Texture& getNumTexture(const int& index);
+    static const sf::Texture& getNumTexture(const int index);
     static void clear();
 
 private:

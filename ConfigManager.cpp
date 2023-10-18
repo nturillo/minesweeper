@@ -1,14 +1,14 @@
 #include "ConfigManager.h"
 
-sf::Vector2<int> ConfigManager::boardSize;
+sf::Vector2i ConfigManager::boardSize;
 int ConfigManager::numMines;
 std::unordered_map<std::string, std::string> ConfigManager::setups;
 
-const sf::Vector2<int>& ConfigManager::getBoardSize() {
+const sf::Vector2i& ConfigManager::getBoardSize() {
 	return boardSize;
 }
 
-const int& ConfigManager::getDefaultNumMines() {
+const int ConfigManager::getDefaultNumMines() {
 	return numMines;
 }
 
@@ -25,7 +25,7 @@ void ConfigManager::load(std::string& fileLocation) {
 	configFile >> y;
 	configFile >> numMines;
 
-	boardSize = sf::Vector2<int>(x, y);
+	boardSize = sf::Vector2i(x, y);
 
 	std::string setupNames[5] = { "lots_o_mines", "recursion_test", "testboard1", "testboard2", "testboard3" };
 	for (std::string setupName : setupNames) {

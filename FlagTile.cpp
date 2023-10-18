@@ -1,6 +1,6 @@
 #include "FlagTile.h"
 
-const bool& FlagTile::reveal() {
+const bool FlagTile::reveal() {
 	if (!revealed)
 	{
 		sprites[0].setTexture(TextureManager::getTexture("flag"));
